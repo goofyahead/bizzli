@@ -1,0 +1,130 @@
+<script type="text/javascript" data-app-id="9FbfmE02WFUjDg3uOELeA" src="yam.js"></script>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="jquery.countdown.js"></script>
+<link href="jquery.countdown.css" rel="stylesheet">
+<link href="hackathon.css" rel="stylesheet">
+
+
+<script> 
+yam.connect.loginButton('#yammer-login', function (resp) { 
+  if (resp.authResponse) { 
+    $('#yammer-login').hide();
+    var populatedUsers = new Array();
+    yam.request({
+      url: "https://www.yammer.com/api/v1/users.json",
+      method: "GET",
+      data: { },
+      success: function (user) {
+        for (var i=0;i<user.length;i++) {
+          var userData = {};
+          var currentUser = user[i];
+          userData.full_name = currentUser.full_name;
+          userData.email = currentUser.contact.email_addresses[0].address;
+          getProfileData(userData);
+        }
+      },
+      error: function (user) {
+        alert("There was an error with the request.");
+      }
+    });
+  } 
+
+}); 
+
+
+
+function getProfileData(userProfile){
+  // var email = "goofyahead@gmail.com";
+
+// TODO: dynamise this
+
+var email = userProfile.email;
+
+$.get('email/' + email, function (response) {
+  console.log(response);
+    // Write data here
+    var sampleData = $('#sample_list').html();
+    sampleData = sampleData.replace('{FULL_NAME}',response.name);
+    sampleData = sampleData.replace('{TITLE}',response.title);
+    sampleData = sampleData.replace('{LOCATION}',response.location);
+    sampleData = sampleData.replace('{PICTURE}',response.picture);
+
+    var pictures = "";
+
+    if (response.pictures) {
+      var total = response.pictures.length > 3 ? 3 : response.pictures.length;
+      for (var i=0;i< total;i++){
+        // $.get('/check/' + encodeURIComponent(response.pictures[i]), function (response) {
+        //   if (response == true) {
+            pictures += '<li><img src="'+ response.pictures[i] +'"/></li>';
+        //   }
+        // });
+      }
+    }
+
+    sampleData = sampleData.replace('{PICTURES}',pictures);
+
+    var networks = "";
+
+    if (response.links) {
+      for (var i=0;i<response.links.length;i++){
+        networks += '<li>' + response.links[i].network_id + ": " + '<a href="' + response.links[i].profile_url +'" target="_blank">Link</a></li>';
+      }
+    }
+
+    sampleData = sampleData.replace('{NETWORKS}',networks);
+
+    $('#user_list').append('<li class="item">' + sampleData + '</li>');
+  });
+
+
+}
+
+</script>
+
+<div class="container">
+  <div class="row">
+    <div class="span12">
+      <h1 class="title">Bizz|LS - A pipe from Business to Social <span id="defaultCountdown" class="countdown"></span></h1> <hr />
+      <span id="yammer-login"></span>
+      <ul id="user_list">
+      </ul>
+    </div>
+  </div>
+</div>
+
+<script> 
+var currentDate = new Date();
+var newDateObj = new Date();
+newDateObj.setTime(currentDate.getTime() + (60 * 1000));
+
+$('#defaultCountdown').countdown({ 
+  until: newDateObj, 
+ compact: true, 
+ format: 's', 
+ description: '', 
+ onExpiry: function(){
+   //alert('Thank you for your time. See you soon!');
+    }
+});
+</script>
+
+<div id="sample_list" style="display: none">
+
+  <h2>{FULL_NAME}</h2>
+
+  <span><strong>Title:</strong> {TITLE}</span><br />
+
+  <span><strong>Location:</strong> {LOCATION}</span><br />
+
+  <img src="{PICTURE}"> <br />
+
+  <h4>Networks</h4>
+
+  <ul class="networks">{NETWORKS}</ul>
+
+  <h4>Pictures</h4>
+
+  <ul class="pictures">{PICTURES}</ul>
+
+</div>

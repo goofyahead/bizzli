@@ -1,0 +1,67 @@
+#user_list {
+	margin-top: 15px;
+}
+
+.loader { margin: 200px auto; height:150px; width: 150px; background:url(loader.gif) no-repeat center !Important; }
+
+.title { position: relative; }
+
+hr { margin-top: 40px; margin-bottom: 10px; }
+
+#defaultCountdown {    
+	display: block;
+    height: 60px;
+	width: 100px;
+    padding-top: 10px; 
+    position: absolute; top: 0px; right: 5px; }
+
+#user_list span { 
+	margin: 5px 0px;
+	display: block;
+}
+
+#user_list span { 
+	margin: 5px 0px;
+	display: block;
+}
+
+#user_list > li {
+	background-color: #DBDBDB;
+	border: 2px solid #DBDBDB;
+	border-radius: 16px 16px 16px 16px;
+	margin-bottom: 25px;
+	list-style: none;
+	min-height: 460px;
+	padding-left: 25px;
+	width: 450px;
+	margin-left: 20px;
+	float: left;
+}
+
+#user_list ul.networks  {
+	padding-left: 0px;
+	margin-left: 0px;
+}
+
+#user_list .networks li {
+	margin-bottom: 5px;
+	list-style: none;
+	padding-left: 0px;
+}
+
+#user_list ul.pictures  {
+	padding-left: 0px;
+	margin-left: 0px;
+}
+
+#user_list .pictures li {
+	margin-bottom: 15px;
+	list-style: none;
+	float: left;
+	padding-left: 0px;
+}
+
+#user_list .pictures li img {
+	height: 100px;
+	margin: 5px;
+}

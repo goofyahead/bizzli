@@ -1,0 +1,14 @@
+{
+  "name": "bizzls",
+  "version": "0.0.1",
+  "description": "bizz ls",
+  "private": true,
+   "dependencies": {
+    "request": "*",
+    "express":"*",
+    "requirejs":"*",
+    "mongodb": "1.X",
+	"underscore": "1.4.X",
+	"jquery": "1.7.X"
+  }
+}
